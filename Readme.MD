@@ -23,8 +23,13 @@ A full-stack task management application built as part of my software developer 
 ![Completed tasks](screenshots/completed-task.png)
 - Delete tasks
 ![Deleted tasks](screenshots/deleted-task.png)
-- Optimistic UI updates
-
+- Edit existing tasks
+![Edit tasks](screenshots/edit-task.png)
+- Filter tasks by:
+  - All
+  - Pending
+  - Completed
+![Filter tasks](screenshots/filter-task.png)
 ### UX Enhancements
 - Loading states for async actions
 - Error handling with user-friendly messages
