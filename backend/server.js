@@ -10,7 +10,9 @@ const taskRoutes = require("./routes/tasks");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "*", // later you can restrict to Vercel domain
+}));
 app.use(express.json());
 
 // Test route
