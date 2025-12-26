@@ -1,38 +1,40 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
 const taskRoutes = require("./routes/tasks");
 
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: "*", // later you can restrict to Vercel domain
-}));
+/* -------------------- MIDDLEWARE -------------------- */
+app.use(cors());
 app.use(express.json());
 
-// Test route
-app.get("/test", (req, res) => {
-  res.json({ message: "Server working" });
+/* -------------------- ROUTES -------------------- */
+
+// Health check / root route (IMPORTANT for Render)
+app.get("/", (req, res) => {
+  res.status(200).send("Task Manager API is running");
 });
 
-// Routes
+// Auth & task routes
 app.use("/auth", authRoutes);
 app.use("/tasks", taskRoutes);
 
-// MongoDB connection (THIS IS THE KEY PART)
+/* -------------------- DATABASE -------------------- */
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection failed:", err.message));
 
-// Server
+/* -------------------- SERVER -------------------- */
+// Render provides PORT automatically
 const PORT = process.env.PORT || 5001;
 
+// MUST bind to 0.0.0.0 for Render
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
